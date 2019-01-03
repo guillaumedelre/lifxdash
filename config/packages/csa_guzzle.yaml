@@ -1,0 +1,14 @@
+# Full configuration reference: https://github.com/csarrazi/CsaGuzzleBundle/blob/2.x/src/Resources/doc/configuration_reference.md#configuration-reference
+# Available client config options: http://docs.guzzlephp.org/en/latest/quickstart.html#creating-a-client
+# and http://docs.guzzlephp.org/en/latest/request-options.html
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    clients:
+        lifx:
+            config:
+                base_uri: https://api.lifx.com
+                headers:
+                    Accept-Encoding: 'gzip, deflate'
+                    Accept: application/json
+                    Content-Type: application/json
+                    Authorization: Bearer %env(LIFX_TOKEN)%
