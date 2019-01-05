@@ -13,11 +13,12 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 class LifxController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/lifx/{id}/show", name="show")
      */
-    public function index(Client $lifx)
+    public function show(Client $lifx, Request $request)
     {
-        $response = $lifx->get('/v1/lights/all');
+        $lightId = $request->attributes->get('id');
+        $response = $lifx->get("/v1/lights/$lightId");
         $jsonEncoder = new JsonEncoder();
         $data = $jsonEncoder->decode($response->getBody()->getContents(), JsonEncoder::FORMAT);
         $colors = [];
@@ -31,9 +32,9 @@ class LifxController extends AbstractController
         }
 
         return $this->render(
-            'dashboard.html.twig',
+            'lifx.html.twig',
             [
-                'lights' => $data,
+                'light' => current($data),
                 'colors' => $colors,
             ]
         );
@@ -56,7 +57,7 @@ class LifxController extends AbstractController
             ]
         );
 
-        return $this->redirectToRoute('index');
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -78,7 +79,7 @@ class LifxController extends AbstractController
             ]
         );
 
-        return $this->redirectToRoute('index', ['id' => $lightId]);
+        return $this->redirect($request->headers->get('referer'));
     }
 
 }

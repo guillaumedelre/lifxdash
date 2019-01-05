@@ -1,6 +1,12 @@
 {% extends "base.html.twig" %}
 
 {% block main %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-dark text-light">
+            <li class="breadcrumb-item active" aria-current="page">Lumières</li>
+        </ol>
+    </nav>
+
     <div class="card text-light bg-dark">
         <div class="card-header">
             Lumières
@@ -20,27 +26,10 @@
                                 <canvas height="150" style="width:100%!important;" id="canvas-{{ light.id }}"></canvas>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="#" class="btn btn-block btn-dark"><i
+                                <a href="{{ url('show', {"id": light.id}) }}" class="btn btn-block btn-dark"><i
                                             class="pt-1 fa fa-chevron-right float-right"></i> {{ light.label|title }}
                                 </a>
                             </div>
-
-                            {#<div class="card-footer">#}
-                            {#<div class="row">#}
-                            {#<div class="col-1">#}
-                            {#<img height="32" src="{{ asset('img/icons8-palette-de-couleurs-48.png') }}">#}
-                            {#</div>#}
-                            {#<div class="col-11">#}
-                            {#<input data-wcp-autoresize="false" value="#{{ colors[light.id] }}" id="light-{{ light.id }}"#}
-                            {#data-wheelcolorpicker#}
-                            {#data-wcp-cssclass="custom-size"#}
-                            {#data-wcp-preview="true"#}
-                            {#data-wcp-format="rgba"#}
-                            {#data-url="{{ url('color', {"id": light.id, "color": "#"}) }}"#}
-                            {#class="mx-auto btn btn-block btn-outline-secondary">#}
-                            {#</div>#}
-                            {#</div>#}
-                            {#</div>#}
                         </div>
                     </div>
                 {% endfor %}

@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/3.0.0-beta.1/css/bootstrap-colorpicker.min.css"
+          integrity="sha256-nuachauYN5kiMuL3k1F/eTXYYjra2cvhc/4LkjYQbGY=" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{{ asset('css/wheelcolorpicker.dark.css') }}"/>
+{% endblock %}
+
+{% block main %}
+    <div class="row" id="lights">
+        <div class="card col-6 mx-auto text-white bg-dark px-0 col-3 ml-4 mr-4">
+            <div class="card-header">
+                {{ light.label|upper }}
+                <small class="float-right">
+                    currently
+                    <span class="badge badge-light">{{ light.power }}</span>
+                </small>
+            </div>
+            <div class="card-body">
+                <a href="{{ url('power', {"id": light.id, "power": light.power}) }}"
+                   class="pl-4 pr-4 pt-4 pb-4 btn btn-block btn-outline-{{ light.power == 'on' ? 'light':'secondary' }}">
+                    <i class="fa fa-9x fa-lightbulb" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-1">
+                        <img height="32" src="{{ asset('img/icons8-palette-de-couleurs-48.png') }}">
+                    </div>
+                    <div class="col-11">
+                        <input data-wcp-autoresize="false" value="#{{ colors[light.id] }}" id="light-{{ light.id }}"
+                               data-wheelcolorpicker
+                               data-wcp-layout="block"
+                               data-wcp-cssclass="custom-size"
+                               data-wcp-preview="true"
+                               data-wcp-format="rgba"
+                               data-url="{{ url('color', {"id": light.id, "color": "#"}) }}"
+                               class="mx-auto btn btn-block btn-outline-secondary">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"
+            integrity="sha256-iBcUE/x23aI6syuqF7EeT/+JFBxjPs5zeFJEXxumwb0=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery.wheelcolorpicker.min.js') }}"></script>
+    <script>
+        $(function () {
+            $('#light-{{ light.id }}').css('background-color', '#{{ colors[light.id] }}');
+            $('#light-{{ light.id }}').on('change', function () {
+                window.location.href = `${$(this).data('url')}${$(this).val()}`;
+            });
+        });
+    </script>
+{% endblock %}
