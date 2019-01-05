@@ -10,7 +10,7 @@
 
 {% block main %}
     <div class="row" id="lights">
-        <div class="card col-6 mx-auto text-white bg-dark px-0 col-3 ml-4 mr-4">
+        <div class="card col-10 mx-auto text-white bg-dark px-0 col-3 ml-4 mr-4">
             <div class="card-header">
                 {{ light.label|upper }}
                 <small class="float-right">
@@ -18,12 +18,12 @@
                     <span class="badge badge-light">{{ light.power }}</span>
                 </small>
             </div>
-            <div class="card-body">
-                <a href="{{ url('power', {"id": light.id, "power": light.power}) }}"
-                   class="pl-4 pr-4 pt-4 pb-4 btn btn-block btn-outline-{{ light.power == 'on' ? 'light':'secondary' }}">
-                    <i class="fa fa-9x fa-lightbulb" aria-hidden="true"></i>
-                </a>
-            </div>
+            {#<div class="card-body">#}
+                {#<a href="{{ url('power', {"id": light.id, "power": light.power}) }}"#}
+                   {#class="pl-4 pr-4 pt-4 pb-4 btn btn-block btn-outline-{{ light.power == 'on' ? 'light':'secondary' }}">#}
+                    {#<i class="fa fa-3x fa-lightbulb" aria-hidden="true"></i>#}
+                {#</a>#}
+            {#</div>#}
             <div class="card-footer">
                 <div class="row">
                     <div class="col-1">
